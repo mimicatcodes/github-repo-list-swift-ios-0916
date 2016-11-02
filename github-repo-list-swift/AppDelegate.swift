@@ -26,8 +26,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let response = OHHTTPStubsResponse(fileAtPath: OHPathForFileInBundle("repositories.json", Bundle(for: type(of: self)))!, statusCode: 200, headers: ["Content-Type": "application/json"])
                 return response
             }
+            
         }
         
+            GithubAPIClient.getRepositories(with: { (repos) in
+                let firstDictionary = repos[0]
+                let newRepoInstance = GithubRepository(dictionary: firstDictionary)
+                print(newRepoInstance)
+            })
         
         
         return true
