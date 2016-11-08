@@ -1,25 +1,19 @@
-//
-//  FISGithubRepository.swift
-//  github-repo-list-swift
-//
-//  Created by susan lovaglio on 10/23/16.
-//  Copyright © 2016 Flatiron School. All rights reserved.
-//
 
 import UIKit
 
 class GithubRepository {
     
-    var fullName : String
+    var fullName : String?
     var htmlURL: URL?
     var repositoryID: String?
     
     init(dictionary:[String:Any]) {
-        self.fullName = dictionary["full_name"] as! String
-        self.htmlURL = URL(string: dictionary["html_url"] as! String)
-        if let repositoryID = dictionary["id"] {
-            self.repositoryID = String(describing: repositoryID)
-        }
+        guard let name = dictionary["full_name"] else {return}
+        guard let url = dictionary["html_url"] else {return}
+        guard let repoID = dictionary["id"] else {return}
+        
+        self.fullName = name as? String
+        self.htmlURL = URL(string: url as! String)!
+        self.repositoryID = String(describing: repoID)
     }
-    
 }

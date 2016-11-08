@@ -32,7 +32,7 @@ class ReposDataStoreSpec: QuickSpec {
                 
                 waitUntil(action: { (done) in
                     
-                    store.getRepositories {_ in 
+                    store.getRepositoriesFromAPI {_ in
                         expect(store.repositories.count).to(equal(2))
                         
                         let repo1 = store.repositories[0]

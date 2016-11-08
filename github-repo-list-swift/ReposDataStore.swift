@@ -4,21 +4,24 @@ import UIKit
 class ReposDataStore {
     
     static let sharedInstance = ReposDataStore()
+    
     var repositories: [GithubRepository] = []
     
-    func getRepositories(handler:@escaping (Bool)->Void) {
+    func getRepositoriesFromAPI(handler:@escaping (Bool)->Void) {
         repositories.removeAll()
-        GithubAPIClient.getRepositories { [unowned self] (repos) in
-            for dictionary in repos {
-            let newRepo = GithubRepository(dictionary: dictionary)
-            self.repositories.append(newRepo)
+        // the completion closure to the API client function should use the init(dictionary:) method on GithubRepository to turn the dictionaries you receive into repository objects.
+        GithubAPIClient.getRepositories { [unowned self] (arrayOfRepos) in
+            for dictionary in arrayOfRepos {
+                let newRepo = GithubRepository(dictionary: dictionary)
+                self.repositories.append(newRepo)
             }
             if self.repositories.isEmpty {
-            handler(false)
+                handler(false)
             } else {
-            handler(true)
+                handler(true)
             }
         }
     }
     
 }
+

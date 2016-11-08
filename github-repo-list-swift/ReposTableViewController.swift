@@ -7,7 +7,6 @@ class ReposTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.tableView.accessibilityLabel = "tableView"
         
     }
@@ -16,7 +15,7 @@ class ReposTableViewController: UITableViewController {
         
         super.viewWillAppear(animated)
         
-        store.getRepositories { (success) in
+        store.getRepositoriesFromAPI { (success) in
             if success {
                 print("Succeded")
                 DispatchQueue.main.async {
